@@ -1,73 +1,79 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Unsplash from "unsplash-js";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import { UnsplashContext } from "../../App";
 
-import "./modal.css";
-
-const GalleryPage = () => {
-  const [image, setImage] = useState("");
+const GalleryPage = ({ text, setText }) => {
+  const [index, setIndex] = useState(0);
   const [result, setResult] = useState([]);
   const [open, setOpen] = useState(false);
   const [imageURL, setImageURL] = useState("");
-  const context2 = useContext(UnsplashContext)
-  const index = result.findIndex((item) => item.urls.regular === imageURL);
+  //const index = result.findIndex((item) => item.urls.regular === imageURL);
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
   const handleClick = (e) => {
-    console.log();
+    const index = result.findIndex((item) => item.urls.regular === e.target.id);
     console.log("Kliknięto", e);
     setImageURL(e.target.src);
+    setIndex(index);
     onOpenModal();
     console.log("imageURL ", imageURL);
     console.log("index ", index);
   };
 
-  useEffect(() => {
-    console.log("context przed axios: ", context2);
+  const fetchData = () => {
     axios
       .get(
-        `https://api.unsplash.com/search/photos?query=${
-          context2
-        }&client_id=OgFp81xnu3Y6nnmdJdHj5UdBvmz2jMP_4o_YvmFz6-o`
+        `https://api.unsplash.com/search/photos?query=${text}&client_id=OgFp81xnu3Y6nnmdJdHj5UdBvmz2jMP_4o_YvmFz6-o`
       )
-      .then(function (response) {
+      .then((response) => {
+        console.log(response);
         setResult(response.data.results);
-        console.log("Response: ", response);
-        console.log("Result: ", result);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log("useEffect result: ", result);
+  }, [result]);
+
   return (
-    <UnsplashContext.Consumer>
-      {() => (
-        <div className="mx-auto">
-          <div className="flex flex-wrap">
-            {result.map((image) => (
-              <img
-                key={image.id}
-                id={image.urls.regular}
-                src={image.urls.small}
-                onClick={handleClick}
-              />
-            ))}
-          </div>
-          <div className="w-full h-auto">
-            <Modal open={open} onClose={onCloseModal}>
-              <p>xxx</p>
-              <img src={imageURL} className="" />
-            </Modal>
-          </div>
+    <div className="flex flex-wrap mx-auto justify-center">
+      {result.map((image) => (
+        <div key={image.id} className="">
+          <img
+            key={image.id}
+            id={image.urls.regular}
+            alt={image.alt_description}
+            src={image.urls.small}
+            onClick={handleClick}
+            className=""
+          />
         </div>
-      )}
-    </UnsplashContext.Consumer>
+      ))}
+      <div className="w-full h-auto mt-10">
+        <Modal open={open} onClose={onCloseModal}>
+          <div className="flex justify-between">
+            <p>xxx</p>
+            <p>yyy</p>
+          </div>
+          <img src={imageURL} className="" />
+          <div className="flex justify-between">
+            <p>zzz</p>
+            <p>fff</p>
+          </div>
+        </Modal>
+      </div>
+    </div>
   );
 };
 
