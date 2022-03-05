@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import Unsplash from "unsplash-js";
+import React, { useEffect, useState } from "react";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 
@@ -15,7 +14,7 @@ const GalleryPage = ({ text, setText }) => {
   const onCloseModal = () => setOpen(false);
 
   const handleClick = (e) => {
-    const index = result.findIndex((item) => item.urls.regular === e.target.id);
+    //const i = result.findIndex((item) => item.urls.regular === e.target.id);
     console.log("Kliknięto", e);
     setImageURL(e.target.src);
     setIndex(index);
@@ -40,7 +39,7 @@ const GalleryPage = ({ text, setText }) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, );
 
   useEffect(() => {
     console.log("useEffect result: ", result);
@@ -66,7 +65,7 @@ const GalleryPage = ({ text, setText }) => {
             <p>xxx</p>
             <p>yyy</p>
           </div>
-          <img src={imageURL} className="" />
+          <img src={imageURL} alt="test" className="" />
           <div className="flex justify-between">
             <p>zzz</p>
             <p>fff</p>

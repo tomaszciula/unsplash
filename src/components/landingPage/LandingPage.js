@@ -10,9 +10,9 @@ const options = [
 ];
 
 const LandingPage = ({ text, setText }) => {
-  const [value, setValue] = useState([]);
+  const [value] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
