@@ -1,7 +1,7 @@
 import LandingPage from "./components/landingPage/LandingPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import GalleryPage from "./components/landingPage/GalleryPage";
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [text, setText] = useState("");
