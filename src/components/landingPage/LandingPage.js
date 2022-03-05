@@ -17,8 +17,6 @@ const LandingPage = ({ text, setText }) => {
 
   const handleChange = (e) => {
     setText(e.value);
-    console.log("e.value: ", e.value);
-    console.log("Text: ", text);
   };
   const handleInputChange = (newValue) => {
     setInputValue(newValue);
@@ -27,8 +25,6 @@ const LandingPage = ({ text, setText }) => {
 
   const onSubmit = (data) => {
     navigate("/gallery");
-    console.log("text: ", text);
-    console.log("inputValue: ", inputValue);
   };
 
   useEffect(() => {

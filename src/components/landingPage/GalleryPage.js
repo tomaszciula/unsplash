@@ -5,7 +5,7 @@ import "react-responsive-modal/styles.css";
 
 const GalleryPage = ({ text, setText }) => {
   const [index, setIndex] = useState(0);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState([])
   const [open, setOpen] = useState(false);
   const [imageURL, setImageURL] = useState("");
   //const index = result.findIndex((item) => item.urls.regular === imageURL);
@@ -14,32 +14,30 @@ const GalleryPage = ({ text, setText }) => {
   const onCloseModal = () => setOpen(false);
 
   const handleClick = (e) => {
-    //const i = result.findIndex((item) => item.urls.regular === e.target.id);
-    console.log("Kliknięto", e);
+    const i = result && result.findIndex((item) => item.urls.regular === e.target.id);
     setImageURL(e.target.src);
-    setIndex(index);
+    setIndex(i);
     onOpenModal();
-    console.log("imageURL ", imageURL);
-    console.log("index ", index);
   };
 
-  const fetchData = () => {
-    axios
-      .get(
-        `https://api.unsplash.com/search/photos?query=${text}&client_id=OgFp81xnu3Y6nnmdJdHj5UdBvmz2jMP_4o_YvmFz6-o`
-      )
-      .then((response) => {
-        console.log(response);
-        setResult(response.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ 
 
   useEffect(() => {
+    const fetchData = () => {
+      axios
+        .get(
+          `https://api.unsplash.com/search/photos?query=${text}&client_id=OgFp81xnu3Y6nnmdJdHj5UdBvmz2jMP_4o_YvmFz6-o`
+        )
+        .then((response) => {
+          console.log(response);
+          setResult(response.data.results);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     fetchData();
-  }, );
+  }, []);
 
   useEffect(() => {
     console.log("useEffect result: ", result);
@@ -47,7 +45,7 @@ const GalleryPage = ({ text, setText }) => {
 
   return (
     <div className="flex flex-wrap mx-auto justify-center">
-      {result.map((image) => (
+      {result && result.map((image) => (
         <div key={image.id} className="">
           <img
             key={image.id}
@@ -63,6 +61,7 @@ const GalleryPage = ({ text, setText }) => {
         <Modal open={open} onClose={onCloseModal}>
           <div className="flex justify-between">
             <p>xxx</p>
+            {console.log("xxx ", result[0])}
             <p>yyy</p>
           </div>
           <img src={imageURL} alt="test" className="" />
