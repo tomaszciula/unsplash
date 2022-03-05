@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import LandingPage from "./components/landingPage/LandingPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import GalleryPage from "./components/landingPage/GalleryPage";
+import { createContext, useContext, useState } from "react";
+
+export const UnsplashContext = createContext("peace");
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <UnsplashContext.Provider value="peace">
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+          </Routes>
+        </Router>
+      </UnsplashContext.Provider>
     </div>
   );
 }
