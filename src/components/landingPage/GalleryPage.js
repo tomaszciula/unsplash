@@ -37,7 +37,7 @@ const GalleryPage = ({ text, setText }) => {
         });
     };
     fetchData();
-  }, []);
+  }, [0]);
 
   useEffect(() => {
     console.log("useEffect result: ", result);
@@ -61,6 +61,7 @@ const GalleryPage = ({ text, setText }) => {
         <Modal open={open} onClose={onCloseModal}>
           <div className="flex justify-between">
             <p>xxx</p>
+            {/*<p>{result[0].alt_description}</p>*/}
             {console.log("xxx ", result[0])}
             <p>yyy</p>
           </div>
