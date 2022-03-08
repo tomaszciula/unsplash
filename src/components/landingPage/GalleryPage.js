@@ -37,7 +37,7 @@ const GalleryPage = ({ text, setText }) => {
         });
     };
     fetchData();
-  }, [0]);
+  }, [text]);
 
   useEffect(() => {
     console.log("useEffect result: ", result);
@@ -62,7 +62,7 @@ const GalleryPage = ({ text, setText }) => {
           <div className="flex justify-between">
             <p>xxx</p>
             {/*<p>{result[0].alt_description}</p>*/}
-            {console.log("xxx ", result[0])}
+            {console.log("xxx ", result[index])}
             <p>yyy</p>
           </div>
           <img src={imageURL} alt="test" className="" />
